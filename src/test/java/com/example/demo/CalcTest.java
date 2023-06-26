@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.AfterAll;
@@ -31,6 +32,18 @@ public class CalcTest {
 		assertEquals(calc.div(10, 5), 2);
 		assertThat(calc.div(10, 5)).isEqualTo(2);
 	}
+	
+	@Test
+	void divテスト_異常() {
+		assertThatThrownBy(() -> {
+			calc.div(4, 0);
+		})
+		//発生したExceptionのクラス
+		.isInstanceOf(ArithmeticException.class)
+		//エラーメッセージに特定の文字列が含まれるか
+		.hasMessageContaining("/ by zero");
+	}
+	
 	
 	@Test
 	void multテスト_正常() {
